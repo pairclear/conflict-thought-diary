@@ -1,0 +1,34 @@
+{
+  "en": {
+    "name": "Thoughts after a fight",
+    "title": "Thoughts after a fight: a free CBT thought diary for couples",
+    "description": "A CBT thought record adapted to arguments with a partner: what happened, what you told yourself, feelings 0-100, thinking traps, facts for and against, a balanced thought. Runs in your browser, sends nothing."
+  },
+  "ru": {
+    "name": "Мысли после ссоры",
+    "title": "Мысли после ссоры: бесплатный дневник мыслей (КПТ) для пары",
+    "description": "Дневник мыслей из КПТ для ссор с партнёром: что случилось, что я себе сказал, чувства 0-100, ловушки мышления, факты за и против, взвешенная мысль. Работает в браузере, ничего не отправляет."
+  },
+  "llms_intro": "A 7-step thought record for ordinary arguments between partners. It never decides who is right and never labels the partner. It is not for situations of fear, threats or control: those get a help block instead.",
+  "files": [
+    [
+      "thinking-traps.md",
+      "Thinking traps",
+      "ten traps with couple examples"
+    ],
+    [
+      "templates/thought-record-en.md",
+      "Printable thought record",
+      "blank sheet"
+    ],
+    [
+      "prompts/chatgpt-en.md",
+      "ChatGPT prompt",
+      "one record in a chat"
+    ]
+  ],
+  "slug": "conflict-thought-diary",
+  "url": "https://pairclear.github.io/conflict-thought-diary/",
+  "repo": "https://github.com/pairclear/conflict-thought-diary",
+  "updated": "2026-11-26"
+}

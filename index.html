@@ -6,9 +6,6 @@
 <title>Мысли после ссоры · Thoughts after a fight</title>
 <meta name="description" content="Дневник мыслей (КПТ) для конфликтов с партнёром: что случилось, что я себе сказал, ловушки мышления, что ещё может быть правдой. Работает в браузере, ничего не отправляет. A free CBT thought record for arguments with a partner that runs in your browser.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Мысли после ссоры · Thoughts after a fight">
-<meta property="og:description" content="Дневник мыслей после ссоры с партнёром. Всё остаётся в твоём браузере.">
-<meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231a1714'/%3E%3Ccircle cx='12' cy='16' r='4.5' fill='%23c0613f'/%3E%3Ccircle cx='20' cy='16' r='4.5' fill='none' stroke='%23c0613f' stroke-width='2'/%3E%3C/svg%3E">
 <style>
 :root{
@@ -167,6 +164,23 @@ details p{max-width:720px}
   body.pblank #sheet{display:block}
 }
 </style>
+<!-- seo:start -->
+<link rel="canonical" href="https://pairclear.github.io/conflict-thought-diary/">
+<link rel="alternate" hreflang="en" href="https://pairclear.github.io/conflict-thought-diary/en/">
+<link rel="alternate" hreflang="ru" href="https://pairclear.github.io/conflict-thought-diary/ru/">
+<link rel="alternate" hreflang="x-default" href="https://pairclear.github.io/conflict-thought-diary/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairClear">
+<meta property="og:title" content="Thoughts after a fight: a free CBT thought diary for couples">
+<meta property="og:description" content="A CBT thought record adapted to arguments with a partner: what happened, what you told yourself, feelings 0-100, thinking traps, facts for and against, a balanced thought. Runs in your browser, sends nothing.">
+<meta property="og:url" content="https://pairclear.github.io/conflict-thought-diary/">
+<meta property="og:image" content="https://pairclear.github.io/conflict-thought-diary/assets/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Thoughts after a fight", "description": "A CBT thought record adapted to arguments with a partner: what happened, what you told yourself, feelings 0-100, thinking traps, facts for and against, a balanced thought. Runs in your browser, sends nothing.", "url": "https://pairclear.github.io/conflict-thought-diary/", "applicationCategory": "LifestyleApplication", "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": ["en", "ru"], "image": "https://pairclear.github.io/conflict-thought-diary/assets/social-preview.png", "license": "https://opensource.org/licenses/MIT", "codeRepository": "https://github.com/pairclear/conflict-thought-diary", "publisher": {"@type": "Organization", "name": "PairClear", "url": "https://pairclear.com/"}}</script>
+<!-- seo:end -->
 </head>
 <body>
 <header class="top">
@@ -578,7 +592,7 @@ const store = {
 const save = () => store.set({ v: 1, lang, view: S.view, step: S.step, draft: S.draft, entries: S.entries, openId: S.openId });
 
 function pickLang(saved){
-  const q = new URLSearchParams(location.search).get("lang");
+  const q = (new URLSearchParams(location.search).get("lang") || document.documentElement.getAttribute("data-lang"));
   if (q === "ru" || q === "en") return q;
   if (saved && (saved.lang === "ru" || saved.lang === "en")) return saved.lang;
   const nav = (navigator.languages || [navigator.language || "en"]).join(",").toLowerCase();

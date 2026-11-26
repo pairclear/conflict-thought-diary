@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231a1714'/%3E%3Ccircle cx='12' cy='16' r='4.5' fill='%23c0613f'/%3E%3Ccircle cx='20' cy='16' r='4.5' fill='none' stroke='%23c0613f' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#faf7f2; --card:#f2ede5; --field:#ffffff; --ink:#1a1714; --muted:#6b645c; --line:#e4ddd2;
+  --accent:#b85c3c; --accent-soft:#f3e2d9; --btn:#1a1714; --btn-ink:#faf7f2; --focus:#b85c3c;
+  --serif:"Iowan Old Style","Charter","Georgia","Cambria","Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter","Helvetica Neue",Arial,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15130f; --card:#211e19; --field:#1b1814; --ink:#efe9df; --muted:#a39b8f; --line:#332e27;
+    --accent:#d9774f; --accent-soft:#3a271e; --btn:#efe9df; --btn-ink:#15130f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15130f; --card:#211e19; --field:#1b1814; --ink:#efe9df; --muted:#a39b8f; --line:#332e27;
+  --accent:#d9774f; --accent-soft:#3a271e; --btn:#efe9df; --btn-ink:#15130f;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans);}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:20px;text-decoration:none}
+.mark{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--ink)}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.langs{display:flex;gap:4px}
+.langs button{font:inherit;font-size:14px;background:none;border:1px solid transparent;color:var(--muted);padding:4px 10px;border-radius:999px;cursor:pointer}
+.langs button[aria-pressed="true"]{color:var(--ink);border-color:var(--line);background:var(--card)}
+main{padding:40px 0 56px;min-height:60vh}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.15;margin:0}
+h1{font-size:clamp(36px,6vw,56px)}
+h2{font-size:clamp(26px,4vw,34px)}
+h3{font-size:20px}
+.lead{font-size:19px;color:var(--ink);max-width:620px;margin:18px 0 0}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+@media (max-width:820px){.grid2{grid-template-columns:1fr;gap:28px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding-left:40px;margin:0 0 14px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center}
+label.lbl{display:block;font-weight:600;margin:28px 0 8px}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:12px 14px;outline:none;transition:border-color .15s, box-shadow .15s}
+input[type=text]:focus,textarea:focus{border-color:var(--focus);box-shadow:0 0 0 3px var(--accent-soft)}
+textarea{min-height:120px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{font:inherit;font-size:14px;background:transparent;border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:20px;font-size:15px;cursor:pointer}
+.check input{margin-top:5px;accent-color:var(--accent)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:28px}
+.btn{font:inherit;font-weight:600;font-size:16px;background:var(--btn);color:var(--btn-ink);border:1px solid var(--btn);padding:12px 20px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn.link{background:none;border:none;padding:12px 4px;color:var(--muted);font-weight:500;text-decoration:underline;text-underline-offset:3px}
+.btn:focus-visible,.chip:focus-visible,.langs button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.note{border-left:3px solid var(--accent);background:var(--card);padding:14px 18px;border-radius:0 10px 10px 0;font-size:15px}
+.note.warn{border-left-color:#c2410c}
+.danger{border:1px solid var(--accent);background:var(--accent-soft);border-radius:var(--r);padding:16px 18px;margin-top:22px;font-size:15px}
+.danger b{display:block;margin-bottom:4px}
+/* progress */
+.prog{display:flex;align-items:center;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.prog .dots{display:flex;gap:6px;align-items:center}
+.prog .dot{width:26px;height:26px;border-radius:999px;border:1px solid var(--line);font-size:13px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.prog .dot.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.prog .dot.done{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.narrow{max-width:720px}
+.hint{font-size:15px;color:var(--muted);margin:6px 0 0}
+.qs{margin:10px 0 0;padding-left:22px;color:var(--muted);font-size:15px}
+.qs li{margin-bottom:6px}
+input[type=date]{font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+/* sliders */
+.rate{display:grid;grid-template-columns:minmax(120px,180px) 1fr 52px auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.rate:last-child{border-bottom:none}
+.rate .nm{font-weight:600}
+.rate .val{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+.rate .was{font-size:13px;color:var(--muted);white-space:nowrap}
+.rate .x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:4px 6px}
+@media (max-width:560px){.rate{grid-template-columns:1fr 52px auto}.rate input[type=range]{grid-column:1 / -1;grid-row:2}}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.addrow{display:flex;gap:8px;margin-top:12px;max-width:420px}
+.addrow input{flex:1}
+/* traps */
+.traps{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+@media (max-width:820px){.traps{grid-template-columns:1fr}}
+.trap{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;cursor:pointer}
+.trap input{margin-top:6px;accent-color:var(--accent)}
+.trap.on{border-color:var(--accent)}
+.trap .tn{font-weight:600}
+.trap .td{font-size:15px;margin-top:2px}
+.trap .te{font-size:14px;color:var(--muted);font-style:italic;margin-top:4px}
+.trapref{display:grid;gap:14px;margin-top:26px}
+.trapref .card h3{margin-bottom:6px}
+.trapref .card p{margin:6px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.two{grid-template-columns:1fr}}
+/* entries */
+.entries{display:grid;gap:10px;margin-top:16px}
+.entry{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;cursor:pointer}
+.entry:hover{border-color:var(--accent)}
+.entry .d{font-size:13px;color:var(--muted)}
+.entry .h{font-family:var(--serif);font-size:19px;margin-top:2px}
+.entry .e{font-size:14px;color:var(--muted);margin-top:4px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tools .btn{font-size:14px;padding:8px 14px}
+.btn.danger-btn{color:var(--accent);border-color:var(--line);background:transparent}
+section.block{margin-top:44px}
+/* summary */
+.sum{margin-top:24px;display:grid;gap:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.sum .it{padding:14px 20px;border-bottom:1px solid var(--line)}
+.sum .it:last-child{border-bottom:none}
+.sum .k{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.sum .v{white-space:pre-wrap;margin-top:4px;word-break:break-word}
+.sum .it.hot .v{font-family:var(--serif);font-size:22px;line-height:1.3}
+.sum .it.bal .v{font-family:var(--serif);font-size:20px;line-height:1.35;color:var(--accent)}
+.bars{display:grid;gap:6px;margin-top:6px}
+.bar{display:grid;grid-template-columns:minmax(90px,160px) 1fr auto;gap:10px;align-items:center;font-size:15px}
+.bar .tr{position:relative;height:10px;border-radius:6px;background:var(--field);border:1px solid var(--line);overflow:hidden}
+.bar .tr i{position:absolute;left:0;top:0;bottom:0;background:var(--line)}
+.bar .tr b{position:absolute;left:0;top:2px;bottom:2px;background:var(--accent);border-radius:4px}
+.bar .n{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;transition:.2s;pointer-events:none;z-index:9}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* footer */
+footer{border-top:1px solid var(--line);padding:36px 0 48px;font-size:15px;color:var(--muted)}
+footer .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media (max-width:820px){footer .cols{grid-template-columns:1fr}}
+footer h3{font-family:var(--sans);font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);margin-bottom:8px}
+footer p{margin:0 0 10px}
+details{margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
+summary{cursor:pointer;font-weight:600;color:var(--ink)}
+details p{max-width:720px}
+.err{color:var(--accent);font-size:14px;min-height:20px;margin-top:10px}
+/* printable blank sheet */
+#sheet{display:none}
+.sheet h2{font-size:24px;margin-bottom:4px}
+.sheet .box{border:1px solid #999;border-radius:6px;padding:8px 10px;margin-top:10px;break-inside:avoid}
+.sheet .box b{font-size:13px}
+.sheet .box small{display:block;color:#555;font-size:11px}
+.sheet .tall{min-height:90px}.sheet .mid{min-height:60px}
+.sheet .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sheet .traplist{font-size:11px;columns:2;margin:4px 0 0;padding-left:0;list-style:none}
+@media print{
+  header.top,.actions,.langs,.tools,.btn,.chips,footer,.no-print{display:none!important}
+  body{background:#fff;color:#000;font-size:13px}
+  main{padding:0}
+  .sum{border:none}
+  body.pblank main{display:none}
+  body.pblank #sheet{display:block}
+}
+</style>
+<!-- seo:start -->
+<title>Thoughts after a fight: a free CBT thought diary for couples</title>
+<meta name="description" content="A CBT thought record adapted to arguments with a partner: what happened, what you told yourself, feelings 0-100, thinking traps, facts for and against, a balanced thought. Runs in your browser, sends nothing.">
+<link rel="canonical" href="https://pairclear.github.io/conflict-thought-diary/en/">
+<link rel="alternate" hreflang="en" href="https://pairclear.github.io/conflict-thought-diary/en/">
+<link rel="alternate" hreflang="ru" href="https://pairclear.github.io/conflict-thought-diary/ru/">
+<link rel="alternate" hreflang="x-default" href="https://pairclear.github.io/conflict-thought-diary/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PairClear">
+<meta property="og:title" content="Thoughts after a fight: a free CBT thought diary for couples">
+<meta property="og:description" content="A CBT thought record adapted to arguments with a partner: what happened, what you told yourself, feelings 0-100, thinking traps, facts for and against, a balanced thought. Runs in your browser, sends nothing.">
+<meta property="og:url" content="https://pairclear.github.io/conflict-thought-diary/en/">
+<meta property="og:image" content="https://pairclear.github.io/conflict-thought-diary/assets/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Thoughts after a fight", "description": "A CBT thought record adapted to arguments with a partner: what happened, what you told yourself, feelings 0-100, thinking traps, facts for and against, a balanced thought. Runs in your browser, sends nothing.", "url": "https://pairclear.github.io/conflict-thought-diary/en/", "applicationCategory": "LifestyleApplication", "operatingSystem": "Any (runs in the browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "inLanguage": "en", "image": "https://pairclear.github.io/conflict-thought-diary/assets/social-preview.png", "license": "https://opensource.org/licenses/MIT", "codeRepository": "https://github.com/pairclear/conflict-thought-diary", "publisher": {"@type": "Organization", "name": "PairClear", "url": "https://pairclear.com/"}}</script>
+<!-- seo:end -->
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#" id="home"><span class="mark" aria-hidden="true"><i></i></span><span data-i="brand"></span></a>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main><div class="wrap" id="app" aria-live="polite"></div></main>
+<div class="wrap" id="sheet"></div>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h3 data-i="f_what_h"></h3>
+        <p data-i="f_what"></p>
+      </div>
+      <div>
+        <h3 data-i="f_crisis_h"></h3>
+        <p data-i="f_crisis" data-html></p>
+      </div>
+      <div>
+        <h3 data-i="f_priv_h"></h3>
+        <p data-i="f_priv"></p>
+        <p><a id="pclink" href="https://pairclear.com/?utm_source=github&amp;utm_medium=tool&amp;utm_campaign=conflict-thought-diary" target="_blank" rel="noopener" data-i="f_pc"></a></p>
+        <p><a href="https://github.com/pairclear/conflict-thought-diary" target="_blank" rel="noopener" data-i="f_src"></a></p>
+      </div>
+    </div>
+    <details>
+      <summary data-i="m_h"></summary>
+      <p data-i="m1"></p>
+      <p data-i="m2"></p>
+      <p data-i="m3"></p>
+    </details>
+  </div>
+</footer>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+"use strict";
+
+const KEY = "conflict-thought-diary:v1";
+const STEPS = 7;
+const CAMPAIGN = "conflict-thought-diary";
+
+/* Each trap: key, name, what it is, example from a couple conflict (invented). */
+const T = {
+  ru: {
+    brand: "Мысли после ссоры",
+    h1: "Мысли после ссоры",
+    sub: "Дневник мыслей по КПТ для конфликтов с партнёром",
+    lead: "После ссоры голова снова и снова прокручивает её. Этот дневник помогает притормозить: отделить то, что произошло, от того, что ты себе сказал, заметить ловушки мышления и найти, что ещё может быть правдой. Он основан на дневнике мыслей из когнитивно-поведенческой терапии и адаптирован под конфликты в паре.",
+    how_h: "Как это устроено",
+    how: [
+      "Опиши, что произошло, как записала бы камера.",
+      "Запиши, что пронеслось в голове, и выбери самую болезненную мысль.",
+      "Назови чувства и их силу от 0 до 100.",
+      "Проверь мысль на частые ловушки мышления.",
+      "Посмотри на факты за и против неё.",
+      "Найди, что ещё может быть правдой, и сформулируй более взвешенную мысль.",
+      "Оцени чувства заново и реши, что тебе сейчас нужно."
+    ],
+    time: "Займёт 10–20 минут. Лучше начинать, когда первая волна немного схлынула.",
+    safe_note: "Дневник для обычных ссор. Если ты боишься партнёра, он(а) причиняет боль, угрожает или контролирует тебя, это не ловушка мышления, и этот дневник здесь не поможет. Смотри блок «Если тебе небезопасно» внизу страницы.",
+    new_entry: "Новая запись",
+    resume_h: "У тебя есть незаконченная запись",
+    resume: "Продолжить",
+    discard: "Удалить черновик",
+    entries_h: "Твои записи",
+    entries_empty: "Пока записей нет. Они хранятся только в этом браузере.",
+    tools_h: "Экспорт и инструменты",
+    exp_md: "Всё в Markdown",
+    exp_csv: "CSV для таблицы",
+    exp_json: "Резервная копия (JSON)",
+    imp_json: "Восстановить из копии",
+    print_blank: "Распечатать пустой бланк",
+    traps_link: "Список ловушек мышления",
+    clear_all: "Стереть всё",
+    clear_q: "Стереть все записи и черновик из этого браузера? Это нельзя отменить. Если записи нужны, сначала сохрани резервную копию.",
+    cleared: "Всё стёрто",
+    copied: "Скопировано",
+    imported: (n) => "Восстановлено записей: " + n,
+    import_bad: "Этот файл не похож на копию дневника",
+    nothing: "Пока нечего экспортировать",
+    step: "Шаг", of: "из",
+    back: "Назад", next: "Дальше", finish: "Сохранить запись",
+    s0_h: "Что произошло?",
+    s0_p: "Только факты, как записала бы камера: кто что сказал или сделал, где и когда. Толкования оставь для следующего шага.",
+    s0_ph: "Пример (вымышленный): Я спросила, едем ли мы в субботу к моим родителям. Он ответил «посмотрим» и продолжил смотреть в телефон.",
+    date_l: "Когда это было",
+    req_situation: "Опиши, что произошло, хотя бы одной строкой.",
+    s1_h: "Что ты себе сказал(а)?",
+    s1_p: "Запиши мысли так, как они пришли, своими словами, даже если они звучат несправедливо или слишком резко. Никто кроме тебя это не увидит.",
+    s1_ph: "Ему плевать на мою семью. Я всегда одна всё планирую. Так будет всегда.",
+    hot_l: "Какая мысль задевает сильнее всего? Перепиши её сюда.",
+    hot_ph: "Ему плевать на мою семью.",
+    belief_l: "Насколько ты веришь в эту мысль сейчас?",
+    req_hot: "Запиши мысль, которая задевает сильнее всего.",
+    s2_h: "Что ты чувствуешь?",
+    s2_p: "Выбери или добавь чувства и оцени силу каждого: 0 — совсем нет, 100 — сильнее не бывает.",
+    emos: ["злость", "обида", "тревога", "страх", "грусть", "одиночество", "ревность", "стыд", "вина", "разочарование", "беспомощность", "раздражение"],
+    emo_add_ph: "Другое чувство",
+    emo_add: "Добавить",
+    emo_none: "Выбери хотя бы одно чувство выше, если хочешь отслеживать, как оно меняется.",
+    s3_h: "Есть ловушки мышления?",
+    s3_p: "Это частые шаблоны, из-за которых ссора кажется хуже, чем говорят факты. Отметь те, что узнаёшь в своей мысли. Если ни одна не подходит, это нормально.",
+    s4_h: "Факты за и против",
+    s4_p: "Цель не в том, чтобы доказать, что ты неправ(а), и не в том, чтобы оправдать партнёра. Цель в том, чтобы увидеть мысль отдельно от фактов.",
+    for_l: "Какие факты подтверждают мысль?",
+    for_ph: "Он не ответил про субботу. В прошлом месяце тоже отказался ехать.",
+    against_l: "Какие факты в неё не укладываются?",
+    against_ph: "На мамин день рождения он сам купил подарок. Вечером он был уставший после работы.",
+    against_hint: "Подумай о случаях, когда было иначе, о том, что партнёр делал хорошего, и о том, что ты заметил(а) бы, если бы не был(а) расстроен(а).",
+    s5_h: "Что ещё может быть правдой?",
+    s5_p: "Поищи другие объяснения. Не обязательно в них верить, просто дай им побыть рядом с первой мыслью.",
+    s5_qs: [
+      "Что партнёр мог чувствовать или думать в тот момент?",
+      "Что бы я сказал(а) другу, который рассказал мне такую историю?",
+      "Как это будет выглядеть через неделю? Через год?",
+      "Есть ли часть, которую я в следующий раз сделал(а) бы иначе?"
+    ],
+    other_l: "Другие объяснения",
+    other_ph: "Он устал и не хотел решать прямо сейчас. Может, у него есть причина, о которой я не знаю.",
+    bal_l: "Более взвешенная мысль",
+    bal_ph: "Он не ответил про субботу, и мне стало обидно. Я пока не знаю почему. Я могу спокойно спросить его вечером.",
+    s6_h: "А теперь?",
+    s6_p: "Оцени чувства и мысль заново. Небольшое изменение — нормальный результат: чувства не обязаны исчезнуть.",
+    was: "было",
+    belief_after_l: "Насколько ты веришь в ту мысль теперь?",
+    need_l: "Что мне сейчас нужно?",
+    need_ph: "Понять, едем ли мы в субботу. Сначала немного побыть одной.",
+    say_l: "Если захочешь поговорить: первая фраза (по желанию)",
+    say_hint: "Один из способов начать без обвинений: «Когда было …, я почувствовал(а) … Мне бы хотелось …».",
+    say_ph: "Когда ты сказал «посмотрим», я почувствовала себя неважной. Мне бы хотелось решить про субботу вместе.",
+    saved: "Запись сохранена в этом браузере",
+    entry_from: "Запись от",
+    sum_situation: "Что произошло",
+    sum_thoughts: "Что я себе сказал(а)",
+    sum_hot: "Самая болезненная мысль",
+    sum_belief: "Вера в мысль",
+    sum_emotions: "Чувства: до → после",
+    sum_traps: "Ловушки мышления",
+    sum_for: "Факты за",
+    sum_against: "Факты против",
+    sum_other: "Что ещё может быть правдой",
+    sum_bal: "Взвешенная мысль",
+    sum_need: "Что мне нужно",
+    sum_say: "Первая фраза для разговора",
+    copy_md: "Скопировать текстом",
+    dl_md: "Скачать .md",
+    copy_prompt: "Промпт для ChatGPT или Claude",
+    prompt_hint: "Кнопка «Промпт» копирует запись вместе с правилами для чата: не ставить диагнозов, не навешивать ярлыков на партнёра, не советовать уйти или остаться. Ты сам(а) решаешь, вставлять ли её куда-то: страница ничего не отправляет.",
+    print: "Распечатать",
+    edit: "Изменить",
+    del: "Удалить запись",
+    del_q: "Удалить эту запись? Это нельзя отменить.",
+    deleted: "Запись удалена",
+    all_entries: "← Все записи",
+    traps_h: "Ловушки мышления в ссоре",
+    traps_p: "Частые шаблоны мышления, которые описывают в когнитивно-поведенческой терапии. Названия и списки у разных авторов отличаются; здесь наша короткая версия с примерами из ссор в паре. В них попадают все, особенно когда больно. Заметить ловушку не значит, что твои чувства неправильные.",
+    traps_ex: "Пример",
+    traps_try: "Что спросить себя",
+    danger_h: "Это звучит серьёзно",
+    danger: "Ты написал(а) то, что может значить, что тебе небезопасно или что ты думаешь о том, чтобы навредить себе. Это важнее дневника. Если опасность прямо сейчас, звони в экстренную службу: 112 в Европе и многих странах, 911 в США и Канаде. Бесплатные и анонимные линии помощи в твоей стране: <a href=\"https://findahelpline.com\" target=\"_blank\" rel=\"noopener\">findahelpline.com</a>. Если партнёр причиняет боль, угрожает или контролирует тебя, это не ловушка мышления: линия помощи при домашнем насилии поможет подумать о безопасности.",
+    f_what_h: "Что это",
+    f_what: "Упражнение для саморефлексии после ссоры. Это не тест, не диагностика и не терапия, и оно не решает, кто прав. Оно не заменяет психолога или семейного терапевта.",
+    f_crisis_h: "Если тебе небезопасно",
+    f_crisis: "Если есть мысли навредить себе, или партнёр причиняет боль, угрожает или контролирует тебя, отложи дневник. Позвони в экстренную службу: 112 в Европе и многих других странах, 911 в США и Канаде. Бесплатные линии поддержки, в том числе при домашнем насилии: <a href=\"https://findahelpline.com\" target=\"_blank\" rel=\"noopener\">findahelpline.com</a>.",
+    f_priv_h: "Приватность",
+    f_priv: "Всё, что ты пишешь, остаётся в этом браузере. Страница ничего не отправляет на сервер, в ней нет аналитики, и она работает без интернета. Если устройством пользуется кто-то ещё, после записи нажми «Стереть всё» или скачай файл и удали записи.",
+    f_pc: "Сделано PairClear: тесты про отношения",
+    f_src: "Открытый код на GitHub",
+    m_h: "Откуда метод",
+    m1: "Дневник мыслей — стандартный бланк когнитивно-поведенческой терапии (КПТ), выросшей из когнитивной терапии Аарона Бека 1960–70-х годов. Идея в том, что наше состояние зависит не только от события, но и от того, что мы себе о нём говорим. Если записать мысль и сверить её с фактами, на неё легче посмотреть со стороны.",
+    m2: "Здесь использованы наши собственные формулировки, а бланк адаптирован под конфликты с партнёром. У КПТ, которую проводит обученный специалист, большая доказательная база, но эту конкретную страницу никто не исследовал, поэтому мы не обещаем никакого эффекта.",
+    m3: "Это не парная терапия и не способ решить, кто прав. Если ссоры повторяются, становятся сильнее или тебе страшно, обратись к психологу или семейному терапевту.",
+    md_title: "Мысли после ссоры",
+    md_footer: "Дневник «Мысли после ссоры», PairClear: https://pairclear.github.io/conflict-thought-diary/",
+    csv_head: ["дата", "что произошло", "мысли", "самая болезненная мысль", "вера до", "вера после", "чувства (до→после)", "ловушки", "факты за", "факты против", "другие объяснения", "взвешенная мысль", "что нужно", "первая фраза"],
+    sheet_h: "Мысли после ссоры: бланк",
+    sheet_sub: "Самоанализ, не диагностика и не терапия. Если тебе небезопасно: 112 / findahelpline.com",
+    sheet_traps: "Ловушки",
+    prompt: (md) =>
+`Помоги мне разобраться в мыслях после ссоры с партнёром. Я заполнил(а) дневник мыслей (бланк в стиле КПТ). Вот что я написал(а):
+
+${md}
+
+Как мне помочь:
+- Пиши коротко и спокойно. Задавай по одному вопросу и жди моего ответа.
+- Сначала в двух-трёх предложениях перескажи, что ты услышал(а) и что я, похоже, чувствую. Не спеши с решениями.
+- Потом помоги проверить самую болезненную мысль: где факт, а где толкование, какие ловушки мышления могут быть, что ещё может быть правдой. Свои наблюдения предлагай как догадки и спрашивай, подходят ли они.
+- Помоги сформулировать, что мне нужно, и, если я захочу, спокойную первую фразу для разговора с партнёром.
+
+Правила для тебя:
+- Мои чувства не неправильные. Цель — яснее увидеть мысль, а не доказать, что я неправ(а), и не оправдать партнёра.
+- Не ставь диагнозов и не навешивай ярлыков ни на меня, ни на партнёра (никаких «нарцисс», «токсичный», «созависимость», «абьюзер» как вывода). Ты слышишь только одну сторону: говори о конкретных действиях, а не о том, что за человек кто-то.
+- Не советуй мне уйти или остаться в отношениях.
+- Это саморефлексия, не терапия. Если ссоры повторяются или усиливаются, можешь предложить психолога или семейного терапевта.
+- Если я упомяну, что партнёр причиняет мне боль, угрожает, контролирует меня или что я его/её боюсь, остановись: страх в такой ситуации не ловушка мышления. Предложи обратиться в экстренную службу (112 или местный номер) или на линию помощи при домашнем насилии (findahelpline.com).
+- Если я упомяну мысли о самоповреждении или суициде, остановись, скажи, что это важнее, и предложи прямо сейчас обратиться в экстренную службу или на бесплатную линию помощи (findahelpline.com). Возвращайся к дневнику, только если я попрошу.
+
+Начни с пересказа того, что ты услышал(а), а потом задай первый вопрос.`,
+    traps: [
+      { k: "mind", n: "Чтение мыслей", d: "Кажется, что точно знаешь, что партнёр думает или чувствует, хотя он(а) этого не говорил(а).", ex: "«Он молчит, значит, злится на меня»", q: "Что именно он(а) сказал(а) или сделал(а)? Могу ли я спросить?" },
+      { k: "fortune", n: "Предсказание будущего", d: "Плохой исход кажется решённым заранее.", ex: "«Мы опять поругаемся, и это кончится расставанием»", q: "Сколько раз мои прогнозы сбывались в точности?" },
+      { k: "catastrophe", n: "Катастрофизация", d: "Неприятное событие ощущается как катастрофа, после которой ничего не исправить.", ex: "«Всё, отношения разрушены»", q: "Что самое вероятное, а не самое страшное?" },
+      { k: "always", n: "«Всегда» и «никогда»", d: "Один случай превращается в правило.", ex: "«Ты никогда меня не слушаешь»", q: "Были ли случаи, когда было иначе?" },
+      { k: "label", n: "Ярлыки", d: "Вместо описания поступка — приговор человеку.", ex: "«Эгоист», «токсичная», «нарцисс»", q: "Какой конкретный поступок меня задел?" },
+      { k: "personal", n: "Принять на свой счёт", d: "Настроение или поступок партнёра кажутся ответом на тебя.", ex: "«Он(а) не в духе — значит, я что-то сделал(а) не так»", q: "Какие ещё причины могут быть у его/её настроения?" },
+      { k: "blame", n: "Всё из-за одного", d: "Вся ответственность за ссору лежит на одном человеке: на партнёре или на тебе.", ex: "«Это всё он(а) виноват(а)» или «Это всё я»", q: "Какая часть моя, а какая — его/её?" },
+      { k: "should", n: "Долженствования", d: "Жёсткие правила о том, как партнёр или ты «должны» себя вести.", ex: "«Если любит, должен сам догадаться, что мне нужно»", q: "Я сказал(а) об этом прямо?" },
+      { k: "emotional", n: "Эмоциональное доказательство", d: "Сильное чувство принимается за доказательство.", ex: "«Я чувствую себя брошенной — значит, меня бросают»", q: "Что говорят факты, если отложить чувство на минуту?" },
+      { k: "filter", n: "Фильтр", d: "Замечаешь только плохое и не видишь остального.", ex: "Из всего вечера помнится только одна резкая фраза", q: "Что ещё было в тот день, неделю?" }
+    ]
+  },
+  en: {
+    brand: "Thoughts after a fight",
+    h1: "Thoughts after a fight",
+    sub: "A CBT thought diary for conflicts with a partner",
+    lead: "After an argument the mind keeps replaying it. This diary helps you slow down: separate what happened from what you told yourself, notice thinking traps and find what else could be true. It is based on the thought record from cognitive behavioural therapy, adapted to conflicts in a couple.",
+    how_h: "How it works",
+    how: [
+      "Describe what happened, the way a camera would record it.",
+      "Write what went through your head and pick the thought that hurts most.",
+      "Name your feelings and how strong they are, 0 to 100.",
+      "Check the thought for common thinking traps.",
+      "Look at the facts for and against it.",
+      "Find what else could be true and write a more balanced thought.",
+      "Re-rate your feelings and decide what you need now."
+    ],
+    time: "Takes 10 to 20 minutes. Best started once the first wave has passed a little.",
+    safe_note: "This diary is for ordinary arguments. If you are afraid of your partner, or they hurt, threaten or control you, that is not a thinking trap and this diary is not the right tool. See \"If you feel unsafe\" at the bottom of the page.",
+    new_entry: "New entry",
+    resume_h: "You have an unfinished entry",
+    resume: "Continue",
+    discard: "Delete draft",
+    entries_h: "Your entries",
+    entries_empty: "No entries yet. They are kept only in this browser.",
+    tools_h: "Export and tools",
+    exp_md: "All as Markdown",
+    exp_csv: "CSV for spreadsheets",
+    exp_json: "Backup (JSON)",
+    imp_json: "Restore from backup",
+    print_blank: "Print a blank sheet",
+    traps_link: "List of thinking traps",
+    clear_all: "Erase everything",
+    clear_q: "Erase all entries and the draft from this browser? This cannot be undone. If you need the entries, save a backup first.",
+    cleared: "Everything erased",
+    copied: "Copied",
+    imported: (n) => "Entries restored: " + n,
+    import_bad: "This file does not look like a diary backup",
+    nothing: "Nothing to export yet",
+    step: "Step", of: "of",
+    back: "Back", next: "Next", finish: "Save entry",
+    s0_h: "What happened?",
+    s0_p: "Only the facts, the way a camera would record them: who said or did what, where, when. Keep interpretations for the next step.",
+    s0_ph: "Example (invented): I asked whether we are going to my parents' on Saturday. He said \"we'll see\" and kept looking at his phone.",
+    date_l: "When it happened",
+    req_situation: "Describe what happened, even in one line.",
+    s1_h: "What did you tell yourself?",
+    s1_p: "Write the thoughts as they came, in your own words, even if they sound unfair or too harsh. Nobody but you will see this.",
+    s1_ph: "He doesn't care about my family. I'm always the one who plans everything. It will always be like this.",
+    hot_l: "Which thought hurts the most? Write it here.",
+    hot_ph: "He doesn't care about my family.",
+    belief_l: "How much do you believe it right now?",
+    req_hot: "Write the thought that hurts the most.",
+    s2_h: "What do you feel?",
+    s2_p: "Pick or add feelings and rate each one: 0 is not at all, 100 is as strong as it gets.",
+    emos: ["anger", "hurt", "anxiety", "fear", "sadness", "loneliness", "jealousy", "shame", "guilt", "disappointment", "helplessness", "irritation"],
+    emo_add_ph: "Another feeling",
+    emo_add: "Add",
+    emo_none: "Pick at least one feeling above if you want to track how it changes.",
+    s3_h: "Any thinking traps?",
+    s3_p: "These are common patterns that make a fight feel worse than the facts say. Tick the ones you recognise in your thought. It is fine if none fit.",
+    s4_h: "Facts for and against",
+    s4_p: "The goal is not to prove you are wrong, and not to excuse your partner. It is to see the thought separately from the facts.",
+    for_l: "Which facts support the thought?",
+    for_ph: "He didn't answer about Saturday. Last month he also said no to going.",
+    against_l: "Which facts don't fit it?",
+    against_ph: "He bought my mum's birthday present himself. He was tired after work that evening.",
+    against_hint: "Think of times it was different, good things your partner did, and what you would notice if you weren't upset.",
+    s5_h: "What else could be true?",
+    s5_p: "Look for other explanations. You don't have to believe them; just let them sit next to the first thought.",
+    s5_qs: [
+      "What might my partner have been feeling or thinking at that moment?",
+      "What would I tell a friend who told me this story?",
+      "How will this look in a week? In a year?",
+      "Is there a part I would do differently next time?"
+    ],
+    other_l: "Other explanations",
+    other_ph: "He was tired and didn't want to decide right then. Maybe there is a reason I don't know about.",
+    bal_l: "A more balanced thought",
+    bal_ph: "He didn't answer about Saturday and that hurt. I don't know why yet. I can ask him calmly tonight.",
+    s6_h: "And now?",
+    s6_p: "Re-rate your feelings and the thought. A small change is a normal result: feelings don't have to go away.",
+    was: "was",
+    belief_after_l: "How much do you believe that thought now?",
+    need_l: "What do I need now?",
+    need_ph: "To know whether Saturday is on. Some time on my own first.",
+    say_l: "If you want to talk: a first sentence (optional)",
+    say_hint: "One way to start without blame: \"When … happened, I felt … I would like …\".",
+    say_ph: "When you said \"we'll see\", I felt unimportant. I'd like us to decide about Saturday together.",
+    saved: "Entry saved in this browser",
+    entry_from: "Entry from",
+    sum_situation: "What happened",
+    sum_thoughts: "What I told myself",
+    sum_hot: "Hot thought",
+    sum_belief: "Belief in the thought",
+    sum_emotions: "Feelings: before → after",
+    sum_traps: "Thinking traps",
+    sum_for: "Facts for",
+    sum_against: "Facts against",
+    sum_other: "What else could be true",
+    sum_bal: "Balanced thought",
+    sum_need: "What I need",
+    sum_say: "First sentence for the talk",
+    copy_md: "Copy as text",
+    dl_md: "Download .md",
+    copy_prompt: "Prompt for ChatGPT or Claude",
+    prompt_hint: "The Prompt button copies the entry together with rules for the chat: no diagnoses, no labels for your partner, no advice to leave or stay. You decide whether to paste it anywhere: this page sends nothing.",
+    print: "Print",
+    edit: "Edit",
+    del: "Delete entry",
+    del_q: "Delete this entry? This cannot be undone.",
+    deleted: "Entry deleted",
+    all_entries: "← All entries",
+    traps_h: "Thinking traps in a fight",
+    traps_p: "Common thought patterns described in cognitive behavioural therapy. Names and lists differ between authors; this is our own short version with examples from couple conflicts. Everyone falls into them, especially when hurt. Noticing a trap does not mean your feelings are wrong.",
+    traps_ex: "Example",
+    traps_try: "Ask yourself",
+    danger_h: "This sounds serious",
+    danger: "You wrote something that may mean you are not safe, or that you are thinking about hurting yourself. That matters more than this diary. If you are in danger right now, call emergency services: 112 in Europe and many other countries, 911 in the US and Canada. Free, confidential helplines in your country: <a href=\"https://findahelpline.com\" target=\"_blank\" rel=\"noopener\">findahelpline.com</a>. If your partner hurts, threatens or controls you, that is not a thinking trap: a domestic violence helpline can help you think about safety.",
+    f_what_h: "What this is",
+    f_what: "A self-reflection exercise for after an argument. It is not a test, a diagnosis or therapy, and it does not decide who is right. It does not replace a psychologist or couples therapist.",
+    f_crisis_h: "If you feel unsafe",
+    f_crisis: "If you are thinking about hurting yourself, or your partner hurts, threatens or controls you, put the diary aside. Call emergency services: 112 in Europe and many other countries, 911 in the US and Canada. Free helplines, including for domestic violence: <a href=\"https://findahelpline.com\" target=\"_blank\" rel=\"noopener\">findahelpline.com</a>.",
+    f_priv_h: "Privacy",
+    f_priv: "Everything you write stays in this browser. The page sends nothing to a server, has no analytics and works offline. If someone else uses this device, press \"Erase everything\" after writing, or download your entries and then erase them.",
+    f_pc: "Made by PairClear: relationship quizzes",
+    f_src: "Open source on GitHub",
+    m_h: "Where the method comes from",
+    m1: "The thought record is a standard worksheet in cognitive behavioural therapy (CBT), which grew out of Aaron Beck's cognitive therapy in the 1960s and 1970s. The idea is that how we feel depends not only on an event but also on what we tell ourselves about it. Writing a thought down and checking it against the facts makes it easier to see from a distance.",
+    m2: "This page uses our own wording and adapts the record to conflicts with a partner. CBT delivered by trained professionals has a large evidence base, but this particular page has not been studied, so we make no claims about its effect.",
+    m3: "It is not couples therapy and not a way to decide who is right. If arguments keep repeating, get worse, or you feel afraid, talk to a psychologist or couples therapist.",
+    md_title: "Thoughts after a fight",
+    md_footer: "\"Thoughts after a fight\" diary by PairClear: https://pairclear.github.io/conflict-thought-diary/",
+    csv_head: ["date", "what happened", "thoughts", "hot thought", "belief before", "belief after", "feelings (before→after)", "traps", "facts for", "facts against", "other explanations", "balanced thought", "what I need", "first sentence"],
+    sheet_h: "Thoughts after a fight: worksheet",
+    sheet_sub: "Self-reflection, not diagnosis or therapy. If you feel unsafe: 112 / 911 / findahelpline.com",
+    sheet_traps: "Traps",
+    prompt: (md) =>
+`Help me sort out my thoughts after an argument with my partner. I filled in a thought record (a CBT-style worksheet). Here is what I wrote:
+
+${md}
+
+How to help me:
+- Keep messages short and calm. Ask one question at a time and wait for my answer.
+- First, in two or three sentences, reflect back what you heard and what I seem to feel. Don't rush to solutions.
+- Then help me check the hot thought: what is fact and what is interpretation, which thinking traps may be there, what else could be true. Offer your observations as guesses and ask whether they fit.
+- Help me put into words what I need and, if I want, a calm first sentence for a talk with my partner.
+
+Rules for you:
+- My feelings are not wrong. The aim is to see the thought more clearly, not to prove I am wrong and not to excuse my partner.
+- Do not diagnose or label me or my partner (no "narcissist", "toxic", "codependent", "abuser" as a conclusion). You only hear one side: talk about specific actions, not about what kind of person someone is.
+- Do not advise me to leave or stay in the relationship.
+- This is self-reflection, not therapy. If arguments repeat or escalate, you can suggest a psychologist or couples therapist.
+- If I mention that my partner hurts, threatens or controls me, or that I am afraid of them, stop: fear in that situation is not a thinking trap. Suggest contacting emergency services (112, 911 or the local number) or a domestic violence helpline (findahelpline.com).
+- If I mention thoughts of self-harm or suicide, stop, say this matters more, and suggest contacting emergency services or a free helpline (findahelpline.com) right now. Go back to the diary only if I ask.
+
+Start by reflecting back what you heard, then ask your first question.`,
+    traps: [
+      { k: "mind", n: "Mind reading", d: "You feel sure you know what your partner thinks or feels, though they did not say it.", ex: "\"He's quiet, so he's angry with me\"", q: "What exactly did they say or do? Could I ask?" },
+      { k: "fortune", n: "Fortune telling", d: "A bad outcome feels already decided.", ex: "\"We'll fight again and it will end in a breakup\"", q: "How often have my predictions come true exactly?" },
+      { k: "catastrophe", n: "Catastrophising", d: "An unpleasant event feels like a disaster that can't be repaired.", ex: "\"That's it, the relationship is ruined\"", q: "What is the most likely outcome, not the worst one?" },
+      { k: "always", n: "Always and never", d: "One event turns into a rule.", ex: "\"You never listen to me\"", q: "Were there times it was different?" },
+      { k: "label", n: "Labelling", d: "A verdict on the person instead of a description of the action.", ex: "\"Selfish\", \"toxic\", \"narcissist\"", q: "Which specific action hurt me?" },
+      { k: "personal", n: "Taking it personally", d: "Your partner's mood or action feels like a response to you.", ex: "\"They're in a bad mood, so I must have done something wrong\"", q: "What other reasons could there be for their mood?" },
+      { k: "blame", n: "All on one person", d: "The whole fight is put on one person: your partner or you.", ex: "\"It's all their fault\" or \"It's all me\"", q: "Which part is mine, and which is theirs?" },
+      { k: "should", n: "Shoulds", d: "Rigid rules about how your partner or you \"should\" behave.", ex: "\"If he loved me, he should guess what I need\"", q: "Did I say it out loud?" },
+      { k: "emotional", n: "Emotional reasoning", d: "A strong feeling is taken as proof.", ex: "\"I feel abandoned, so I am being abandoned\"", q: "What do the facts say if I set the feeling aside for a minute?" },
+      { k: "filter", n: "Mental filter", d: "You notice only the bad part and miss the rest.", ex: "Out of the whole evening you remember only one sharp remark", q: "What else happened that day, that week?" }
+    ]
+  }
+};
+
+/* Words that should surface the safety block. Matched locally, never sent anywhere. */
+const DANGER = /(суицид|покончить с собой|убить себя|убью себя|не хочу жить|не хочется жить|навредить себе|порезать себя|самоповрежд|ударил|ударила|бьёт меня|бьет меня|избил|избила|душил|душила|угрожает|угрожал|угрожала|боюсь его|боюсь её|боюсь ее|насили|suicid|kill myself|end my life|want to die|don'?t want to live|self[- ]harm|hurt myself|cut myself|hit me|hits me|beat me|beats me|punched me|choked me|strangled|threaten|afraid of (him|her|them)|scared of (him|her|them)|abus)/i;
+
+let lang = "ru";
+let S;
+const blankDraft = () => ({ id: null, date: today(), situation: "", thoughts: "", hot: "", beliefBefore: 70, beliefAfter: null,
+  emotions: [], traps: [], evFor: "", evAgainst: "", other: "", balanced: "", need: "", say: "" });
+const blankState = () => ({ view: "home", step: 0, draft: null, entries: [], openId: null });
+
+function today(){ const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+
+const store = {
+  get(){ try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch(e){ return null; } },
+  set(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} },
+  del(){ try { localStorage.removeItem(KEY); } catch(e){} }
+};
+const save = () => store.set({ v: 1, lang, view: S.view, step: S.step, draft: S.draft, entries: S.entries, openId: S.openId });
+
+function pickLang(saved){
+  const q = (new URLSearchParams(location.search).get("lang") || document.documentElement.getAttribute("data-lang"));
+  if (q === "ru" || q === "en") return q;
+  if (saved && (saved.lang === "ru" || saved.lang === "en")) return saved.lang;
+  const nav = (navigator.languages || [navigator.language || "en"]).join(",").toLowerCase();
+  return /(^|,)(ru|uk|be|kk)/.test(nav) ? "ru" : "en";
+}
+
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const t = () => T[lang];
+const clamp = (n) => Math.max(0, Math.min(100, Math.round(+n || 0)));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const trapName = (k) => { const x = t().traps.find(tr => tr.k === k); return x ? x.n : k; };
+const fmtDate = (iso) => { try { const [y, m, d] = iso.split("-").map(Number); return new Date(y, m - 1, d).toLocaleDateString(lang === "ru" ? "ru-RU" : "en-GB", { day: "numeric", month: "long", year: "numeric" }); } catch(e){ return iso; } };
+const textOf = (e) => [e.situation, e.thoughts, e.hot, e.evFor, e.evAgainst, e.other, e.balanced, e.need, e.say, ...(e.emotions || []).map(x => x.name)].join(" \n ");
+const isDanger = (e) => DANGER.test(textOf(e));
+const pcUrl = (medium) => (lang === "ru" ? "https://pairclear.com/ru/" : "https://pairclear.com/en/") + "?utm_source=github&utm_medium=" + medium + "&utm_campaign=" + CAMPAIGN;
+
+function toast(msg){ const el = $("#toast"); el.textContent = msg; el.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove("show"), 2000); }
+async function copy(text){
+  try { await navigator.clipboard.writeText(text); }
+  catch(e){
+    const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch(_){} ta.remove();
+  }
+  toast(t().copied);
+}
+function download(name, text, type){
+  const blob = new Blob([text], { type: type + ";charset=utf-8" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+/* ---------- text exports ---------- */
+function entryMd(e, heading = "##"){
+  const L = t(), out = [];
+  out.push(heading + " " + L.entry_from + " " + fmtDate(e.date));
+  const sec = (k, v) => { if (v && String(v).trim()) out.push("", "**" + L[k] + "**", "", String(v).trim()); };
+  sec("sum_situation", e.situation);
+  sec("sum_thoughts", e.thoughts);
+  sec("sum_hot", e.hot);
+  if (e.hot) out.push("", "**" + L.sum_belief + ":** " + e.beliefBefore + (e.beliefAfter != null ? " → " + e.beliefAfter : ""));
+  if (e.emotions && e.emotions.length) {
+    out.push("", "**" + L.sum_emotions + "**", "");
+    e.emotions.forEach(x => out.push("- " + x.name + ": " + x.b + (x.a != null ? " → " + x.a : "")));
+  }
+  if (e.traps && e.traps.length) out.push("", "**" + L.sum_traps + ":** " + e.traps.map(trapName).join(", "));
+  sec("sum_for", e.evFor);
+  sec("sum_against", e.evAgainst);
+  sec("sum_other", e.other);
+  sec("sum_bal", e.balanced);
+  sec("sum_need", e.need);
+  sec("sum_say", e.say);
+  return out.join("\n");
+}
+function allMd(){
+  const L = t();
+  return "# " + L.md_title + "\n\n" + S.entries.map(e => entryMd(e)).join("\n\n---\n\n") + "\n\n---\n\n" + L.md_footer + "\n";
+}
+function csv(){
+  const L = t();
+  const q = (v) => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
+  const rows = [L.csv_head.map(q).join(",")];
+  S.entries.forEach(e => rows.push([e.date, e.situation, e.thoughts, e.hot, e.beliefBefore, e.beliefAfter,
+    (e.emotions || []).map(x => x.name + " " + x.b + (x.a != null ? "→" + x.a : "")).join("; "),
+    (e.traps || []).map(trapName).join("; "), e.evFor, e.evAgainst, e.other, e.balanced, e.need, e.say].map(q).join(",")));
+  return "﻿" + rows.join("\r\n") + "\r\n";
+}
+
+/* ---------- static text ---------- */
+function applyStatic(){
+  document.documentElement.lang = lang;
+  $$("[data-i]").forEach(el => {
+    const v = t()[el.dataset.i];
+    if (el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
+  });
+  $$(".langs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  $("#pclink").href = pcUrl("tool");
+  document.title = lang === "ru" ? "Мысли после ссоры: дневник мыслей (КПТ) для пары" : "Thoughts after a fight: a CBT thought diary for couples";
+}
+
+/* ---------- views ---------- */
+function dangerBlock(){ const L = t(); return `<div class="danger" role="alert"><b>${esc(L.danger_h)}</b>${L.danger}</div>`; }
+
+function viewHome(){
+  const L = t();
+  const d = S.draft;
+  const hasDraft = d && (d.situation.trim() || d.hot.trim());
+  const list = S.entries.slice().sort((a, b) => (b.date + b.id).localeCompare(a.date + a.id));
+  return `
+  <div class="grid2">
+    <div>
+      <h1>${esc(L.h1)}</h1>
+      <p class="topicline" style="font-family:var(--serif);font-size:21px;color:var(--muted);margin:8px 0 0">${esc(L.sub)}</p>
+      <p class="lead">${esc(L.lead)}</p>
+      ${hasDraft ? `
+        <div class="note" style="margin-top:28px">
+          <b>${esc(L.resume_h)}</b>${d.hot.trim() ? ": «" + esc(d.hot.trim().slice(0, 80)) + "»" : ""}
+          <div class="row" style="margin-top:12px">
+            <button class="btn" data-act="resume">${esc(L.resume)}</button>
+            <button class="btn ghost" data-act="discard">${esc(L.discard)}</button>
+          </div>
+        </div>` : ""}
+      <div class="row"><button class="btn" data-act="new">${esc(L.new_entry)} →</button>
+        <button class="btn link" data-act="traps">${esc(L.traps_link)}</button></div>
+      <p class="note warn small" style="margin-top:28px">${esc(L.safe_note)}</p>
+    </div>
+    <div class="card">
+      <h3>${esc(L.how_h)}</h3>
+      <ol class="steps" style="margin-top:16px">${L.how.map(s => `<li>${esc(s)}</li>`).join("")}</ol>
+      <p class="muted small" style="margin:6px 0 0">${esc(L.time)}</p>
+    </div>
+  </div>
+  <section class="block">
+    <h2>${esc(L.entries_h)}</h2>
+    ${list.length ? `<div class="entries">${list.map(e => {
+      const top = (e.emotions || []).slice().sort((a, b) => b.b - a.b)[0];
+      return `<button class="entry" data-open="${esc(e.id)}">
+        <div class="d">${esc(fmtDate(e.date))}</div>
+        <div class="h">${esc((e.hot || e.situation || "").slice(0, 120))}</div>
+        ${top ? `<div class="e">${esc(top.name)}: ${top.b}${top.a != null ? " → " + top.a : ""}${e.balanced ? " · " + esc(e.balanced.slice(0, 80)) : ""}</div>` : ""}
+      </button>`; }).join("")}</div>` : `<p class="muted">${esc(L.entries_empty)}</p>`}
+  </section>
+  <section class="block">
+    <h3>${esc(L.tools_h)}</h3>
+    <div class="tools">
+      <button class="btn ghost" data-act="exp-md">${esc(L.exp_md)}</button>
+      <button class="btn ghost" data-act="exp-csv">${esc(L.exp_csv)}</button>
+      <button class="btn ghost" data-act="exp-json">${esc(L.exp_json)}</button>
+      <button class="btn ghost" data-act="imp-json">${esc(L.imp_json)}</button>
+      <button class="btn ghost" data-act="print-blank">${esc(L.print_blank)}</button>
+      <button class="btn danger-btn" data-act="clear">${esc(L.clear_all)}</button>
+    </div>
+  </section>`;
+}
+
+function progress(k){
+  const L = t();
+  return `<div class="prog">
+    <span class="muted small">${esc(L.step)} ${k + 1} ${esc(L.of)} ${STEPS}</span>
+    <span class="dots">${Array.from({ length: STEPS }, (_, i) => `<span class="dot ${i < k ? "done" : i === k ? "on" : ""}">${i + 1}</span>`).join("")}</span>
+  </div>`;
+}
+
+function rateRow(i, name, val, was){
+  return `<div class="rate">
+    <span class="nm">${esc(name)}</span>
+    <input type="range" min="0" max="100" step="5" value="${val}" data-rate="${i}" aria-label="${esc(name)}">
+    <span class="val" data-val="${i}">${val}</span>
+    ${was != null ? `<span class="was">${esc(t().was)} ${was}</span>` : `<button type="button" class="x" data-rm="${i}" aria-label="×">×</button>`}
+  </div>`;
+}
+
+function viewStep(k){
+  const L = t(), d = S.draft;
+  let h, p, body;
+  if (k === 0) {
+    h = L.s0_h; p = L.s0_p;
+    body = `
+      <textarea id="f_situation" data-f="situation" placeholder="${esc(L.s0_ph)}">${esc(d.situation)}</textarea>
+      <label class="lbl" for="f_date">${esc(L.date_l)}</label>
+      <input type="date" id="f_date" data-f="date" value="${esc(d.date)}" max="${today()}">
+      <p class="note warn small" style="margin-top:24px">${esc(L.safe_note)}</p>`;
+  } else if (k === 1) {
+    h = L.s1_h; p = L.s1_p;
+    body = `
+      <textarea data-f="thoughts" placeholder="${esc(L.s1_ph)}">${esc(d.thoughts)}</textarea>
+      <label class="lbl" for="f_hot">${esc(L.hot_l)}</label>
+      <input type="text" id="f_hot" data-f="hot" maxlength="300" placeholder="${esc(L.hot_ph)}" value="${esc(d.hot)}">
+      <label class="lbl">${esc(L.belief_l)}</label>
+      <div class="rate" style="grid-template-columns:1fr 52px"><input type="range" min="0" max="100" step="5" value="${d.beliefBefore}" data-belief="beliefBefore" aria-label="${esc(L.belief_l)}"><span class="val" data-bval="beliefBefore">${d.beliefBefore}</span></div>`;
+  } else if (k === 2) {
+    h = L.s2_h; p = L.s2_p;
+    const names = d.emotions.map(x => x.name.toLowerCase());
+    body = `
+      <div class="chips">${L.emos.map(n => `<button type="button" class="chip" data-emo="${esc(n)}" aria-pressed="${names.includes(n) ? "true" : "false"}">${esc(n)}</button>`).join("")}</div>
+      <div class="addrow"><input type="text" id="emoNew" maxlength="40" placeholder="${esc(L.emo_add_ph)}"><button type="button" class="btn ghost" data-act="emo-add">${esc(L.emo_add)}</button></div>
+      <div class="card" style="margin-top:22px;padding:8px 20px">${d.emotions.length ? d.emotions.map((x, i) => rateRow(i, x.name, x.b, null)).join("") : `<p class="muted small">${esc(L.emo_none)}</p>`}</div>`;
+  } else if (k === 3) {
+    h = L.s3_h; p = L.s3_p;
+    body = `
+      ${d.hot.trim() ? `<p class="topicline" style="font-family:var(--serif);font-size:20px;margin:18px 0 0">«${esc(d.hot.trim())}»</p>` : ""}
+      <div class="traps">${L.traps.map(tr => `<label class="trap ${d.traps.includes(tr.k) ? "on" : ""}">
+        <input type="checkbox" data-trap="${tr.k}" ${d.traps.includes(tr.k) ? "checked" : ""}>
+        <span><span class="tn">${esc(tr.n)}</span><div class="td">${esc(tr.d)}</div><div class="te">${esc(tr.ex)}</div></span>
+      </label>`).join("")}</div>`;
+  } else if (k === 4) {
+    h = L.s4_h; p = L.s4_p;
+    body = `
+      ${d.hot.trim() ? `<p class="topicline" style="font-family:var(--serif);font-size:20px;margin:18px 0 0">«${esc(d.hot.trim())}»</p>` : ""}
+      <div class="two">
+        <div><label class="lbl" for="f_for">${esc(L.for_l)}</label><textarea id="f_for" data-f="evFor" placeholder="${esc(L.for_ph)}">${esc(d.evFor)}</textarea></div>
+        <div><label class="lbl" for="f_against">${esc(L.against_l)}</label><textarea id="f_against" data-f="evAgainst" placeholder="${esc(L.against_ph)}">${esc(d.evAgainst)}</textarea>
+        <p class="hint">${esc(L.against_hint)}</p></div>
+      </div>`;
+  } else if (k === 5) {
+    h = L.s5_h; p = L.s5_p;
+    body = `
+      <ul class="qs">${L.s5_qs.map(q => `<li>${esc(q)}</li>`).join("")}</ul>
+      <label class="lbl" for="f_other">${esc(L.other_l)}</label>
+      <textarea id="f_other" data-f="other" placeholder="${esc(L.other_ph)}">${esc(d.other)}</textarea>
+      <label class="lbl" for="f_bal">${esc(L.bal_l)}</label>
+      <textarea id="f_bal" data-f="balanced" style="min-height:90px" placeholder="${esc(L.bal_ph)}">${esc(d.balanced)}</textarea>`;
+  } else {
+    h = L.s6_h; p = L.s6_p;
+    if (d.beliefAfter == null) d.beliefAfter = d.beliefBefore;
+    d.emotions.forEach(x => { if (x.a == null) x.a = x.b; });
+    body = `
+      ${d.emotions.length ? `<div class="card" style="margin-top:22px;padding:8px 20px">${d.emotions.map((x, i) => rateRow(i, x.name, x.a, x.b)).join("")}</div>` : ""}
+      <label class="lbl">${esc(L.belief_after_l)}${d.hot.trim() ? ` <span class="muted" style="font-weight:400">«${esc(d.hot.trim().slice(0, 100))}»</span>` : ""}</label>
+      <div class="rate" style="grid-template-columns:1fr 52px auto"><input type="range" min="0" max="100" step="5" value="${d.beliefAfter}" data-belief="beliefAfter" aria-label="${esc(L.belief_after_l)}"><span class="val" data-bval="beliefAfter">${d.beliefAfter}</span><span class="was">${esc(L.was)} ${d.beliefBefore}</span></div>
+      <label class="lbl" for="f_need">${esc(L.need_l)}</label>
+      <textarea id="f_need" data-f="need" style="min-height:90px" placeholder="${esc(L.need_ph)}">${esc(d.need)}</textarea>
+      <label class="lbl" for="f_say">${esc(L.say_l)}</label>
+      <textarea id="f_say" data-f="say" style="min-height:90px" placeholder="${esc(L.say_ph)}">${esc(d.say)}</textarea>
+      <p class="hint">${esc(L.say_hint)}</p>`;
+  }
+  return `
+  <div class="narrow">
+    ${progress(k)}
+    <h2>${esc(h)}</h2>
+    <p class="lead" style="font-size:17px">${esc(p)}</p>
+    <form id="stepForm" autocomplete="off">
+      <div style="margin-top:20px">${body}</div>
+      <div id="dangerSlot">${isDanger(d) ? dangerBlock() : ""}</div>
+      <div class="err" id="err"></div>
+      <div class="row" style="margin-top:14px">
+        <button type="button" class="btn ghost" data-act="back">← ${esc(L.back)}</button>
+        <button class="btn" type="submit">${esc(k === STEPS - 1 ? L.finish : L.next)} →</button>
+      </div>
+    </form>
+  </div>`;
+}
+
+function bars(e){
+  const em = e.emotions || [];
+  if (!em.length) return "";
+  return `<div class="bars">${em.map(x => `<div class="bar"><span>${esc(x.name)}</span>
+    <span class="tr"><i style="width:${x.b}%"></i>${x.a != null ? `<b style="width:${x.a}%"></b>` : ""}</span>
+    <span class="n">${x.b}${x.a != null ? " → " + x.a : ""}</span></div>`).join("")}</div>`;
+}
+
+function viewEntry(e, justSaved){
+  const L = t();
+  const it = (k, v, cls = "") => v && String(v).trim() ? `<div class="it ${cls}"><div class="k">${esc(L[k])}</div><div class="v">${esc(String(v).trim())}</div></div>` : "";
+  return `
+  <div class="narrow">
+    <button class="btn link no-print" data-act="home" style="padding-left:0">${esc(L.all_entries)}</button>
+    ${justSaved ? `<p class="muted small" style="margin:8px 0 0">✓ ${esc(L.saved)}</p>` : ""}
+    <h2 style="margin-top:8px">${esc(L.entry_from)} ${esc(fmtDate(e.date))}</h2>
+    ${isDanger(e) ? dangerBlock() : ""}
+    <div class="sum">
+      ${it("sum_situation", e.situation)}
+      ${it("sum_thoughts", e.thoughts)}
+      ${e.hot ? `<div class="it hot"><div class="k">${esc(L.sum_hot)}</div><div class="v">${esc(e.hot)}</div>
+        <div class="muted small" style="margin-top:6px">${esc(L.sum_belief)}: ${e.beliefBefore}${e.beliefAfter != null ? " → " + e.beliefAfter : ""}</div></div>` : ""}
+      ${(e.emotions || []).length ? `<div class="it"><div class="k">${esc(L.sum_emotions)}</div>${bars(e)}</div>` : ""}
+      ${(e.traps || []).length ? `<div class="it"><div class="k">${esc(L.sum_traps)}</div><div class="v">${esc(e.traps.map(trapName).join(", "))}</div></div>` : ""}
+      ${it("sum_for", e.evFor)}
+      ${it("sum_against", e.evAgainst)}
+      ${it("sum_other", e.other)}
+      ${it("sum_bal", e.balanced, "bal")}
+      ${it("sum_need", e.need)}
+      ${it("sum_say", e.say)}
+    </div>
+    <div class="actions" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+      <button class="btn" data-act="copy-prompt">${esc(L.copy_prompt)}</button>
+      <button class="btn ghost" data-act="copy-md">${esc(L.copy_md)}</button>
+      <button class="btn ghost" data-act="dl-md">${esc(L.dl_md)}</button>
+      <button class="btn ghost" data-act="print">${esc(L.print)}</button>
+      <button class="btn ghost" data-act="edit">${esc(L.edit)}</button>
+      <button class="btn danger-btn" data-act="del">${esc(L.del)}</button>
+    </div>
+    <p class="muted small no-print" style="margin-top:14px">${esc(L.prompt_hint)}</p>
+    <div class="actions no-print" style="margin-top:28px">
+      <button class="btn" data-act="new">${esc(L.new_entry)} →</button>
+    </div>
+  </div>`;
+}
+
+function viewTraps(){
+  const L = t();
+  return `
+  <div class="narrow">
+    <button class="btn link no-print" data-act="home" style="padding-left:0">${esc(L.all_entries)}</button>
+    <h1 style="font-size:clamp(32px,5vw,46px);margin-top:8px">${esc(L.traps_h)}</h1>
+    <p class="lead" style="font-size:17px">${esc(L.traps_p)}</p>
+    <div class="trapref">${L.traps.map(tr => `<div class="card">
+      <h3>${esc(tr.n)}</h3>
+      <p>${esc(tr.d)}</p>
+      <p class="muted"><b>${esc(L.traps_ex)}:</b> ${esc(tr.ex)}</p>
+      <p><b>${esc(L.traps_try)}:</b> ${esc(tr.q)}</p>
+    </div>`).join("")}</div>
+    <div class="row"><button class="btn" data-act="new">${esc(L.new_entry)} →</button></div>
+  </div>`;
+}
+
+function sheetHTML(){
+  const L = t();
+  const box = (title, sub, cls) => `<div class="box ${cls}"><b>${esc(title)}</b>${sub ? `<small>${esc(sub)}</small>` : ""}</div>`;
+  return `<div class="sheet">
+    <h2>${esc(L.sheet_h)}</h2>
+    <div style="font-size:11px;color:#555">${esc(L.sheet_sub)} · ${esc(L.date_l)}: ____________</div>
+    ${box(L.s0_h, L.s0_p, "tall")}
+    ${box(L.s1_h, L.hot_l + " · " + L.belief_l + " ___ /100", "tall")}
+    ${box(L.s2_h, L.s2_p, "mid")}
+    <div class="box"><b>${esc(L.sheet_traps)}</b><ul class="traplist">${L.traps.map(tr => `<li>☐ ${esc(tr.n)}: ${esc(tr.ex)}</li>`).join("")}</ul></div>
+    <div class="row2">${box(L.for_l, "", "tall")}${box(L.against_l, "", "tall")}</div>
+    ${box(L.s5_h, L.s5_qs.join(" "), "tall")}
+    ${box(L.bal_l, "", "mid")}
+    ${box(L.s6_h, L.belief_after_l + " ___ /100", "mid")}
+    ${box(L.need_l, L.say_hint, "mid")}
+  </div>`;
+}
+
+/* ---------- render & events ---------- */
+function render(){
+  const app = $("#app");
+  if (S.view === "step" && S.draft) { app.innerHTML = viewStep(S.step); bindStep(S.step); return; }
+  if (S.view === "entry") {
+    const e = S.entries.find(x => x.id === S.openId);
+    if (e) { app.innerHTML = viewEntry(e, render.justSaved); render.justSaved = false; bindEntry(e); return; }
+  }
+  if (S.view === "traps") { app.innerHTML = viewTraps(); bindCommon(); return; }
+  S.view = "home"; app.innerHTML = viewHome(); bindHome();
+}
+function go(view, extra = {}){
+  Object.assign(S, { view }, extra); save(); render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+const on = (act, fn) => $$("[data-act=" + act + "]").forEach(el => el.addEventListener("click", fn));
+function startNew(){ S.draft = blankDraft(); go("step", { step: 0 }); }
+function bindCommon(){
+  on("home", () => go("home"));
+  on("new", startNew);
+}
+
+function bindHome(){
+  const L = t();
+  bindCommon();
+  on("resume", () => { const d = S.draft; const k = !d.situation.trim() ? 0 : !d.hot.trim() ? 1 : Math.min(S.step || 2, STEPS - 1); go("step", { step: k }); });
+  on("discard", () => { S.draft = null; save(); render(); });
+  on("traps", () => go("traps"));
+  $$("[data-open]").forEach(b => b.addEventListener("click", () => go("entry", { openId: b.dataset.open })));
+  const stamp = today();
+  on("exp-md", () => S.entries.length ? download("thoughts-after-a-fight-" + stamp + ".md", allMd(), "text/markdown") : toast(L.nothing));
+  on("exp-csv", () => S.entries.length ? download("thoughts-after-a-fight-" + stamp + ".csv", csv(), "text/csv") : toast(L.nothing));
+  on("exp-json", () => S.entries.length ? download("thoughts-after-a-fight-backup-" + stamp + ".json", JSON.stringify({ app: CAMPAIGN, v: 1, entries: S.entries }, null, 2), "application/json") : toast(L.nothing));
+  on("imp-json", () => $("#importFile").click());
+  on("print-blank", printBlank);
+  on("clear", () => {
+    if (!confirm(L.clear_q)) return;
+    store.del(); S = blankState(); save(); render(); toast(L.cleared);
+  });
+}
+
+function bindStep(k){
+  const L = t(), d = S.draft;
+  bindCommon();
+  const refreshDanger = () => { const slot = $("#dangerSlot"); const want = isDanger(d); if (want !== !!slot.firstChild) slot.innerHTML = want ? dangerBlock() : ""; };
+  $$("[data-f]").forEach(el => el.addEventListener("input", () => {
+    d[el.dataset.f] = el.value; $("#err").textContent = ""; save(); refreshDanger();
+  }));
+  $$("[data-belief]").forEach(el => el.addEventListener("input", () => {
+    d[el.dataset.belief] = clamp(el.value); $("[data-bval=" + el.dataset.belief + "]").textContent = d[el.dataset.belief]; save();
+  }));
+  $$("[data-rate]").forEach(el => el.addEventListener("input", () => {
+    const x = d.emotions[+el.dataset.rate]; if (!x) return;
+    if (k === 6) x.a = clamp(el.value); else { x.b = clamp(el.value); }
+    $("[data-val='" + el.dataset.rate + "']").textContent = clamp(el.value); save();
+  }));
+  $$("[data-rm]").forEach(el => el.addEventListener("click", () => { d.emotions.splice(+el.dataset.rm, 1); save(); render(); }));
+  $$("[data-emo]").forEach(el => el.addEventListener("click", () => {
+    const n = el.dataset.emo, i = d.emotions.findIndex(x => x.name.toLowerCase() === n.toLowerCase());
+    if (i >= 0) d.emotions.splice(i, 1); else d.emotions.push({ name: n, b: 50, a: null });
+    save(); render();
+  }));
+  const addCustom = () => {
+    const inp = $("#emoNew"); const n = inp.value.trim(); if (!n) return;
+    if (!d.emotions.some(x => x.name.toLowerCase() === n.toLowerCase())) d.emotions.push({ name: n, b: 50, a: null });
+    save(); render(); const ni = $("#emoNew"); if (ni) ni.focus();
+  };
+  on("emo-add", addCustom);
+  const en = $("#emoNew"); if (en) en.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); addCustom(); } });
+  $$("[data-trap]").forEach(el => el.addEventListener("change", () => {
+    const key = el.dataset.trap;
+    d.traps = el.checked ? [...new Set([...d.traps, key])] : d.traps.filter(x => x !== key);
+    el.closest(".trap").classList.toggle("on", el.checked); save();
+  }));
+  on("back", () => { if (k === 0) go(d.id ? "entry" : "home"); else go("step", { step: k - 1 }); });
+  $("#stepForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (k === 0 && !d.situation.trim()) { $("#err").textContent = L.req_situation; $("#f_situation").focus(); return; }
+    if (k === 1 && !d.hot.trim()) { $("#err").textContent = L.req_hot; $("#f_hot").focus(); return; }
+    if (k < STEPS - 1) { go("step", { step: k + 1 }); return; }
+    finish();
+  });
+  if (k === 0 && !d.situation) setTimeout(() => { const f = $("#f_situation"); if (f) f.focus({ preventScroll: true }); }, 50);
+}
+
+function finish(){
+  const d = S.draft;
+  ["situation", "thoughts", "hot", "evFor", "evAgainst", "other", "balanced", "need", "say"].forEach(k => d[k] = String(d[k] || "").trim());
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d.date)) d.date = today();
+  if (d.id) { const i = S.entries.findIndex(x => x.id === d.id); if (i >= 0) S.entries[i] = d; else S.entries.push(d); }
+  else { d.id = uid(); S.entries.push(d); }
+  const id = d.id; S.draft = null; render.justSaved = true;
+  go("entry", { openId: id });
+}
+
+function bindEntry(e){
+  const L = t();
+  bindCommon();
+  const md = () => entryMd(e, "#") + "\n\n— " + L.md_footer;
+  on("copy-md", () => copy(md()));
+  on("dl-md", () => download("thoughts-after-a-fight-" + e.date + ".md", md() + "\n", "text/markdown"));
+  on("copy-prompt", () => copy(L.prompt(entryMd(e, "###"))));
+  on("print", () => window.print());
+  on("edit", () => { S.draft = JSON.parse(JSON.stringify(e)); go("step", { step: 0 }); });
+  on("del", () => {
+    if (!confirm(L.del_q)) return;
+    S.entries = S.entries.filter(x => x.id !== e.id); toast(L.deleted); go("home", { openId: null });
+  });
+}
+
+function printBlank(){
+  $("#sheet").innerHTML = sheetHTML();
+  document.body.classList.add("pblank");
+  const done = () => { document.body.classList.remove("pblank"); window.removeEventListener("afterprint", done); };
+  window.addEventListener("afterprint", done);
+  window.print();
+  setTimeout(done, 1500);
+}
+
+$("#importFile").addEventListener("change", (ev) => {
+  const f = ev.target.files && ev.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const data = JSON.parse(r.result);
+      const arr = Array.isArray(data) ? data : data.entries;
+      if (!Array.isArray(arr)) throw 0;
+      const ok = arr.map(sanitize).filter(Boolean);
+      if (!ok.length) throw 0;
+      ok.forEach(x => { const i = S.entries.findIndex(y => y.id === x.id); if (i >= 0) S.entries[i] = x; else S.entries.push(x); });
+      save(); render(); toast(t().imported(ok.length));
+    } catch(e){ toast(t().import_bad); }
+    ev.target.value = "";
+  };
+  r.readAsText(f);
+});
+
+function sanitize(x, isDraft){
+  if (!x || typeof x !== "object") return null;
+  const s = (v) => String(v == null ? "" : v);
+  const e = { ...blankDraft(), id: s(x.id) || uid(), date: /^\d{4}-\d{2}-\d{2}$/.test(x.date) ? x.date : today(),
+    situation: s(x.situation), thoughts: s(x.thoughts), hot: s(x.hot),
+    beliefBefore: clamp(x.beliefBefore), beliefAfter: x.beliefAfter == null ? null : clamp(x.beliefAfter),
+    emotions: Array.isArray(x.emotions) ? x.emotions.filter(y => y && y.name).map(y => ({ name: s(y.name).slice(0, 40), b: clamp(y.b), a: y.a == null ? null : clamp(y.a) })) : [],
+    traps: Array.isArray(x.traps) ? x.traps.map(s).filter(k => T.en.traps.some(tr => tr.k === k)) : [],
+    evFor: s(x.evFor), evAgainst: s(x.evAgainst), other: s(x.other), balanced: s(x.balanced), need: s(x.need), say: s(x.say) };
+  if (isDraft) e.id = x.id ? s(x.id) : null;
+  return (isDraft || e.situation || e.hot) ? e : null;
+}
+
+$$(".langs button").forEach(b => b.addEventListener("click", () => {
+  lang = b.dataset.lang; save(); applyStatic(); render();
+}));
+$("#home").addEventListener("click", (e) => { e.preventDefault(); if (S.view !== "home") go("home"); });
+
+/* boot */
+const saved = store.get();
+lang = pickLang(saved);
+S = blankState();
+if (saved && saved.v === 1) {
+  S.entries = Array.isArray(saved.entries) ? saved.entries.map(sanitize).filter(Boolean) : [];
+  if (saved.draft) S.draft = sanitize(saved.draft, true);
+  S.view = ["home", "step", "entry", "traps"].includes(saved.view) ? saved.view : "home";
+  S.step = Math.max(0, Math.min(STEPS - 1, +saved.step || 0));
+  S.openId = saved.openId || null;
+  if (S.view === "step" && !S.draft) S.view = "home";
+}
+if (new URLSearchParams(location.search).get("view") === "traps") S.view = "traps";
+applyStatic();
+render();
+})();
+</script>
+</body>
+</html>

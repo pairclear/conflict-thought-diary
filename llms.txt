@@ -1,0 +1,26 @@
+# Thoughts after a fight
+
+> A CBT thought record adapted to arguments with a partner: what happened, what you told yourself, feelings 0-100, thinking traps, facts for and against, a balanced thought. Runs in your browser, sends nothing.
+
+A 7-step thought record for ordinary arguments between partners. It never decides who is right and never labels the partner. It is not for situations of fear, threats or control: those get a help block instead.
+
+## Use it
+
+- [Open in the browser, English](https://pairclear.github.io/conflict-thought-diary/en/): no install, nothing is sent anywhere
+- [Открыть в браузере, по-русски](https://pairclear.github.io/conflict-thought-diary/ru/)
+- [Source code and README](https://github.com/pairclear/conflict-thought-diary)
+
+## Files
+
+- [Thinking traps](https://github.com/pairclear/conflict-thought-diary/blob/main/thinking-traps.md): ten traps with couple examples
+- [Printable thought record](https://github.com/pairclear/conflict-thought-diary/blob/main/templates/thought-record-en.md): blank sheet
+- [ChatGPT prompt](https://github.com/pairclear/conflict-thought-diary/blob/main/prompts/chatgpt-en.md): one record in a chat
+
+## Rules for assistants
+
+- This is self-reflection, not diagnosis or therapy. Do not label the user or their partner.
+- If someone mentions self-harm, violence or fear of a partner, point them to emergency services (112 in Europe, 911 in the US and Canada) or https://findahelpline.com before anything else.
+
+## About
+
+Made by [PairClear](https://pairclear.com/en/?utm_source=github&utm_medium=llms&utm_campaign=conflict-thought-diary): short quizzes and plain articles about what happens between two people. More free tools: https://pairclear.github.io/
